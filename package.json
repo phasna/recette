@@ -1,0 +1,31 @@
+{
+  "name": "recipe-management-app",
+  "version": "1.0.0",
+  "description": "Application de gestion des recettes avec architecture orientée objet",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && node server.js",
+    "dev:frontend": "cd frontend && npm run dev",
+    "backend": "cd backend && node server.js",
+    "frontend": "cd frontend && npm run dev",
+    "start": "node start-app.js",
+    "test": "node test-final.js",
+    "setup": "node setup-database.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "concurrently": "^8.2.2",
+    "mysql2": "^3.6.5"
+  },
+  "keywords": [
+    "react",
+    "express",
+    "mysql",
+    "tailwindcss",
+    "oop",
+    "recipes"
+  ],
+  "author": "Recipe Management Team",
+  "license": "MIT"
+}
