@@ -155,3 +155,4 @@ import RecipeCard from "../recipes/RecipeCard.jsx";
 **Date de Création :** Octobre 2025  
 **Dernière Mise à Jour :** Octobre 2025  
 **Statut :** ✅ Actif
+

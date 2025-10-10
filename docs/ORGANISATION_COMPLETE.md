@@ -344,3 +344,4 @@ cd frontend && npm run dev       # Terminal 2
 **Mainteneur :** Équipe de développement
 
 🎉 **Le projet est maintenant parfaitement organisé et prêt pour la production !**
+

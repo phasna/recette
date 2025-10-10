@@ -317,3 +317,4 @@ Les tests sont organisés dans le dossier `/tests` avec la structure suivante :
 
 **Dernière Mise à Jour :** Octobre 2025  
 **Statut :** ✅ Actif et maintenu
+

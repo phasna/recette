@@ -358,3 +358,4 @@ import { Navbar } from "./components/common/Navbar.jsx";
 **Prêt pour :** Production & Collaboration
 
 🎊 **Félicitations ! Votre projet est maintenant parfaitement organisé !** 🎊
+
