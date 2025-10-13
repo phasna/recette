@@ -193,6 +193,7 @@ const userController = {
       user.email = userData.email || user.email;
       user.first_name = userData.first_name || user.first_name;
       user.last_name = userData.last_name || user.last_name;
+      user.country = userData.country || user.country;
       user.avatar_url = userData.avatar_url || user.avatar_url;
 
       // Validation

@@ -1,0 +1,44 @@
+═══════════════════════════════════════════════════════════════════
+    COMMANDE SQL À EXÉCUTER POUR AJOUTER LE CHAMP PAYS
+═══════════════════════════════════════════════════════════════════
+
+📝 COPIEZ ET COLLEZ CETTE COMMANDE DANS phpMyAdmin :
+
+ALTER TABLE users ADD COLUMN country VARCHAR(100) DEFAULT NULL AFTER last_name;
+
+═══════════════════════════════════════════════════════════════════
+
+🔹 ÉTAPES À SUIVRE :
+
+1. Ouvrez phpMyAdmin : http://localhost:8888/phpMyAdmin
+2. Sélectionnez la base "recipe_app"
+3. Cliquez sur l'onglet "SQL"
+4. Copiez-collez la commande ci-dessus
+5. Cliquez sur "Exécuter"
+
+═══════════════════════════════════════════════════════════════════
+
+✅ APRÈS L'EXÉCUTION :
+
+Redémarrez vos serveurs :
+
+Backend :
+cd backend
+npm start
+
+Frontend :
+cd frontend
+npm start
+
+═══════════════════════════════════════════════════════════════════
+
+📌 VÉRIFICATION :
+
+Pour vérifier que la colonne a bien été ajoutée, exécutez :
+
+DESCRIBE users;
+
+Vous devriez voir une colonne "country" de type VARCHAR(100)
+
+═══════════════════════════════════════════════════════════════════
+

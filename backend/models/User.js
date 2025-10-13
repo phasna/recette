@@ -12,6 +12,7 @@ class User {
     this.password = data.password || "";
     this.first_name = data.first_name || "";
     this.last_name = data.last_name || "";
+    this.country = data.country || "";
     this.avatar_url = data.avatar_url || null;
     this.created_at = data.created_at || null;
     this.updated_at = data.updated_at || null;
@@ -112,6 +113,7 @@ class User {
       password: this.password,
       first_name: this.first_name,
       last_name: this.last_name,
+      country: this.country,
       avatar_url: this.avatar_url,
       created_at: this.created_at,
       updated_at: this.updated_at,
@@ -163,6 +165,7 @@ class User {
       email: this.email,
       first_name: this.first_name,
       last_name: this.last_name,
+      country: this.country,
       avatar_url: this.avatar_url,
       created_at: this.created_at,
       updated_at: this.updated_at,
@@ -180,6 +183,7 @@ class User {
       email: this.email,
       first_name: this.first_name,
       last_name: this.last_name,
+      country: this.country,
       avatar_url: this.avatar_url,
       created_at: this.created_at,
       updated_at: this.updated_at,
@@ -194,8 +198,8 @@ class User {
   async create(hashedPassword) {
     return new Promise((resolve, reject) => {
       const query = `
-        INSERT INTO users (username, email, password, first_name, last_name, avatar_url)
-        VALUES (?, ?, ?, ?, ?, ?)
+        INSERT INTO users (username, email, password, first_name, last_name, country, avatar_url)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
       `;
 
       const values = [
@@ -204,6 +208,7 @@ class User {
         hashedPassword,
         this.first_name,
         this.last_name,
+        this.country,
         this.avatar_url,
       ];
 
@@ -227,13 +232,14 @@ class User {
     return new Promise((resolve, reject) => {
       let query = `
         UPDATE users 
-        SET username = ?, email = ?, first_name = ?, last_name = ?, avatar_url = ?
+        SET username = ?, email = ?, first_name = ?, last_name = ?, country = ?, avatar_url = ?
       `;
       let values = [
         this.username,
         this.email,
         this.first_name,
         this.last_name,
+        this.country,
         this.avatar_url,
       ];
 
@@ -282,7 +288,7 @@ class User {
   static async findById(id) {
     return new Promise((resolve, reject) => {
       const query =
-        "SELECT id, username, email, first_name, last_name, avatar_url, created_at FROM users WHERE id = ?";
+        "SELECT id, username, email, first_name, last_name, country, avatar_url, created_at FROM users WHERE id = ?";
 
       db.query(query, [id], (err, results) => {
         if (err) {
@@ -344,7 +350,7 @@ class User {
   static async findAll() {
     return new Promise((resolve, reject) => {
       const query =
-        "SELECT id, username, email, first_name, last_name, avatar_url, created_at FROM users ORDER BY created_at DESC";
+        "SELECT id, username, email, first_name, last_name, country, avatar_url, created_at FROM users ORDER BY created_at DESC";
 
       db.query(query, (err, results) => {
         if (err) {

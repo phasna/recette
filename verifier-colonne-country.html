@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vérifier la colonne country</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+      .card {
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        max-width: 600px;
+        text-align: center;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      }
+      h1 {
+        color: #667eea;
+        margin-bottom: 20px;
+      }
+      .instruction {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 20px 0;
+        text-align: left;
+      }
+      .sql-box {
+        background: #282c34;
+        color: #61dafb;
+        padding: 15px;
+        border-radius: 8px;
+        font-family: monospace;
+        margin: 15px 0;
+        cursor: pointer;
+      }
+      .sql-box:hover {
+        background: #1e2127;
+      }
+      .btn {
+        background: #667eea;
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 10px;
+        transition: background 0.3s;
+      }
+      .btn:hover {
+        background: #5568d3;
+      }
+      .success {
+        background: #d4edda;
+        color: #155724;
+        padding: 15px;
+        border-radius: 8px;
+        margin: 20px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>🔍 Vérifier la colonne "country"</h1>
+
+      <div class="instruction">
+        <h3>📋 Étape 1 : Copiez cette commande</h3>
+        <div class="sql-box" onclick="copyCommand()" id="sql-verify">
+          DESCRIBE users;
+        </div>
+        <small>Cliquez pour copier ☝️</small>
+      </div>
+
+      <div class="instruction">
+        <h3>🔧 Étape 2 : Exécutez dans phpMyAdmin</h3>
+        <p>1. Ouvrez phpMyAdmin</p>
+        <p>2. Sélectionnez <strong>recipe_app</strong></p>
+        <p>3. Onglet <strong>SQL</strong></p>
+        <p>4. Collez et exécutez</p>
+        <button
+          class="btn"
+          onclick="window.open('http://localhost:8888/phpMyAdmin', '_blank')"
+        >
+          🌐 Ouvrir phpMyAdmin
+        </button>
+      </div>
+
+      <div class="success">
+        <h3>✅ Vous devriez voir :</h3>
+        <p>
+          Une ligne avec <strong>"country"</strong> de type
+          <strong>varchar(100)</strong>
+        </p>
+      </div>
+
+      <div class="instruction">
+        <h3>❓ La colonne n'existe pas encore ?</h3>
+        <p>Exécutez d'abord cette commande :</p>
+        <div class="sql-box" onclick="copyAddColumn()" id="sql-add">
+          ALTER TABLE users ADD COLUMN country VARCHAR(100) DEFAULT NULL AFTER
+          last_name;
+        </div>
+        <small>Cliquez pour copier ☝️</small>
+      </div>
+
+      <div id="message" style="margin-top: 20px; font-weight: bold"></div>
+    </div>
+
+    <script>
+      function copyCommand() {
+        const text = document.getElementById("sql-verify").textContent.trim();
+        navigator.clipboard.writeText(text).then(() => {
+          showMessage("✅ Commande DESCRIBE copiée !", "#28a745");
+        });
+      }
+
+      function copyAddColumn() {
+        const text = document.getElementById("sql-add").textContent.trim();
+        navigator.clipboard.writeText(text).then(() => {
+          showMessage("✅ Commande ALTER TABLE copiée !", "#28a745");
+        });
+      }
+
+      function showMessage(text, color) {
+        const msg = document.getElementById("message");
+        msg.textContent = text;
+        msg.style.color = color;
+        setTimeout(() => {
+          msg.textContent = "";
+        }, 3000);
+      }
+    </script>
+  </body>
+</html>

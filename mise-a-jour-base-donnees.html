@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mise à jour Base de Données - Ajouter le champ Pays</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container {
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        max-width: 800px;
+        width: 100%;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      }
+
+      h1 {
+        color: #667eea;
+        margin-bottom: 10px;
+        font-size: 2em;
+      }
+
+      .warning {
+        background: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 5px;
+      }
+
+      .step {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 20px 0;
+      }
+
+      .step h2 {
+        color: #495057;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .step-number {
+        background: #667eea;
+        color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
+
+      .sql-command {
+        background: #282c34;
+        color: #61dafb;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+        position: relative;
+        font-family: "Monaco", "Courier New", monospace;
+        font-size: 14px;
+        overflow-x: auto;
+      }
+
+      .copy-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #667eea;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 12px;
+        transition: background 0.3s;
+      }
+
+      .copy-btn:hover {
+        background: #5568d3;
+      }
+
+      .copy-btn.copied {
+        background: #28a745;
+      }
+
+      .link {
+        background: #e7f3ff;
+        border: 2px solid #667eea;
+        border-radius: 10px;
+        padding: 15px;
+        margin: 15px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .link a {
+        color: #667eea;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 16px;
+      }
+
+      .link a:hover {
+        text-decoration: underline;
+      }
+
+      .open-btn {
+        background: #667eea;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.3s;
+      }
+
+      .open-btn:hover {
+        background: #5568d3;
+      }
+
+      .success {
+        background: #d4edda;
+        border-left: 4px solid #28a745;
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 5px;
+        color: #155724;
+      }
+
+      .checklist {
+        list-style: none;
+        padding: 0;
+      }
+
+      .checklist li {
+        padding: 10px;
+        margin: 5px 0;
+        background: #f8f9fa;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .checklist li::before {
+        content: "✅";
+        font-size: 20px;
+      }
+
+      .emoji {
+        font-size: 24px;
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🔧 Mise à jour de la Base de Données</h1>
+      <p style="color: #6c757d; margin-top: 10px">
+        Ajout du champ "Pays" pour les utilisateurs
+      </p>
+
+      <div class="warning">
+        <strong>⚠️ IMPORTANT :</strong> Votre base de données n'a pas encore été
+        mise à jour ! Suivez les étapes ci-dessous pour ajouter la colonne
+        "country".
+      </div>
+
+      <div class="step">
+        <h2><span class="step-number">1</span> Ouvrez phpMyAdmin</h2>
+        <p>Cliquez sur le bouton ci-dessous pour ouvrir phpMyAdmin :</p>
+        <div class="link">
+          <a
+            href="http://localhost:8888/phpMyAdmin"
+            target="_blank"
+            id="phpmyadmin-link"
+          >
+            http://localhost:8888/phpMyAdmin
+          </a>
+          <button
+            class="open-btn"
+            onclick="window.open('http://localhost:8888/phpMyAdmin', '_blank')"
+          >
+            Ouvrir phpMyAdmin
+          </button>
+        </div>
+        <p style="margin-top: 10px; color: #6c757d; font-size: 14px">
+          💡 Si le lien ne fonctionne pas, essayez :
+          <a href="http://localhost/phpMyAdmin" target="_blank"
+            >http://localhost/phpMyAdmin</a
+          >
+        </p>
+      </div>
+
+      <div class="step">
+        <h2>
+          <span class="step-number">2</span> Sélectionnez la base de données
+        </h2>
+        <p>
+          Dans phpMyAdmin, cliquez sur <strong>"recipe_app"</strong> dans la
+          liste à gauche
+        </p>
+      </div>
+
+      <div class="step">
+        <h2><span class="step-number">3</span> Ouvrez l'onglet SQL</h2>
+        <p>Cliquez sur l'onglet <strong>"SQL"</strong> en haut de la page</p>
+      </div>
+
+      <div class="step">
+        <h2>
+          <span class="step-number">4</span> Copiez et collez cette commande SQL
+        </h2>
+        <p>Cliquez sur "Copier" puis collez la commande dans phpMyAdmin :</p>
+        <div class="sql-command">
+          <button class="copy-btn" onclick="copySQL()">📋 Copier</button>
+          <code id="sql-code"
+            >ALTER TABLE users ADD COLUMN country VARCHAR(100) DEFAULT NULL
+            AFTER last_name;</code
+          >
+        </div>
+      </div>
+
+      <div class="step">
+        <h2><span class="step-number">5</span> Exécutez la commande</h2>
+        <p>
+          Cliquez sur le bouton <strong>"Exécuter"</strong> (ou "Go") dans
+          phpMyAdmin
+        </p>
+      </div>
+
+      <div class="success">
+        <h3>✅ Après l'exécution réussie :</h3>
+        <ul class="checklist" style="margin-top: 15px">
+          <li>Vous devriez voir un message de succès</li>
+          <li>La colonne "country" a été ajoutée à la table "users"</li>
+          <li>Redémarrez votre backend et frontend</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h2><span class="emoji">🚀</span> Redémarrer les serveurs</h2>
+        <p>Après la mise à jour de la base de données :</p>
+        <div
+          style="
+            margin-top: 15px;
+            background: #282c34;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+          "
+        >
+          <p style="margin-bottom: 10px"><strong>Backend :</strong></p>
+          <code style="color: #61dafb">cd backend && npm start</code>
+
+          <p style="margin: 15px 0 10px 0"><strong>Frontend :</strong></p>
+          <code style="color: #61dafb">cd frontend && npm start</code>
+        </div>
+      </div>
+
+      <div class="step">
+        <h2><span class="emoji">🎉</span> Testez !</h2>
+        <p>Une fois les serveurs redémarrés :</p>
+        <ul style="margin-top: 10px; padding-left: 30px">
+          <li>Créez un nouveau compte → Vous verrez le champ "Pays 🌍"</li>
+          <li>Connectez-vous → Allez sur votre profil</li>
+          <li>Cliquez sur "✏️ Modifier" pour changer votre pays</li>
+        </ul>
+      </div>
+    </div>
+
+    <script>
+      function copySQL() {
+        const sqlCode = document.getElementById("sql-code").textContent;
+        navigator.clipboard.writeText(sqlCode).then(() => {
+          const btn = document.querySelector(".copy-btn");
+          btn.textContent = "✅ Copié !";
+          btn.classList.add("copied");
+
+          setTimeout(() => {
+            btn.textContent = "📋 Copier";
+            btn.classList.remove("copied");
+          }, 2000);
+        });
+      }
+    </script>
+  </body>
+</html>
