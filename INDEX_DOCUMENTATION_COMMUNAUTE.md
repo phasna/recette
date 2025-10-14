@@ -401,3 +401,4 @@ Consultez les logs pour voir quelle étape échoue
 ---
 
 **Tout est documenté et prêt ! Démarrez et profitez ! 🍽️✨**
+

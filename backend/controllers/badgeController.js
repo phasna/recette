@@ -49,7 +49,7 @@ export const getUserBadges = async (req, res) => {
  */
 export const checkBadges = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user.userId;
 
     const newBadges = await Badge.checkAndAwardBadges(userId);
 
@@ -92,7 +92,7 @@ export const getUserBadgeStats = async (req, res) => {
  */
 export const getNextBadges = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user.userId;
 
     const nextBadges = await Badge.getNextBadgesToUnlock(userId);
 
@@ -147,4 +147,3 @@ export const getBadgesByCategory = async (req, res) => {
     });
   }
 };
-

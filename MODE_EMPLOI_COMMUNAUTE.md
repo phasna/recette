@@ -605,3 +605,4 @@ WHERE name = 'Chef Maison';  -- 5 → 3 recettes
 ```
 
 **Bon appétit et bonne exploration ! 🍽️✨**
+

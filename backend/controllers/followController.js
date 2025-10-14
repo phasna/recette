@@ -10,7 +10,7 @@ import Follow from "../models/Follow.js";
 export const followUser = async (req, res) => {
   try {
     const { userId } = req.body; // ID de l'utilisateur à suivre
-    const followerId = req.user.id; // ID de l'utilisateur connecté (depuis le middleware auth)
+    const followerId = req.user.userId; // ID de l'utilisateur connecté (depuis le middleware auth)
 
     // Vérifier qu'on ne se suit pas soi-même
     if (followerId === userId) {
@@ -44,7 +44,7 @@ export const followUser = async (req, res) => {
 export const unfollowUser = async (req, res) => {
   try {
     const { userId } = req.params; // ID de l'utilisateur à ne plus suivre
-    const followerId = req.user.id;
+    const followerId = req.user.userId;
 
     const success = await Follow.unfollow(followerId, parseInt(userId));
 
@@ -115,7 +115,7 @@ export const getFollowing = async (req, res) => {
  */
 export const getSuggestedUsers = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user.userId;
     const limit = parseInt(req.query.limit) || 10;
 
     const suggestions = await Follow.getSuggestedUsers(userId, limit);
@@ -138,12 +138,9 @@ export const getSuggestedUsers = async (req, res) => {
 export const checkFollowStatus = async (req, res) => {
   try {
     const { userId } = req.params;
-    const followerId = req.user.id;
+    const followerId = req.user.userId;
 
-    const isFollowing = await Follow.isFollowing(
-      followerId,
-      parseInt(userId)
-    );
+    const isFollowing = await Follow.isFollowing(followerId, parseInt(userId));
 
     res.json({
       isFollowing,
@@ -173,4 +170,3 @@ export const getFollowStats = async (req, res) => {
     });
   }
 };
-

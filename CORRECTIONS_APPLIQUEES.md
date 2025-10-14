@@ -343,3 +343,4 @@ Si les problèmes persistent :
 ---
 
 **Avec ces corrections, les commentaires doivent fonctionner parfaitement ! 🎉**
+

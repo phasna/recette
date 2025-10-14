@@ -66,3 +66,4 @@ addColumns().catch((error) => {
   db.end();
   process.exit(1);
 });
+

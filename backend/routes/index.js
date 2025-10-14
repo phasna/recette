@@ -6,6 +6,7 @@ import followRoutes from "./follow.js";
 import commentsRoutes from "./comments.js";
 import badgesRoutes from "./badges.js";
 import communityRoutes from "./community.js";
+import fridgeAssistantRoutes from "./fridgeAssistant.js";
 import { optionalAuth } from "../middleware/auth.js";
 
 const router = express.Router();
@@ -27,6 +28,9 @@ router.use("/follow", followRoutes);
 router.use("/comments", commentsRoutes);
 router.use("/badges", badgesRoutes);
 router.use("/community", communityRoutes);
+
+// Routes pour l'Assistant Vide-Frigo
+router.use("/fridge-assistant", fridgeAssistantRoutes);
 
 // Route de test générale
 router.get("/test", (req, res) => {

@@ -169,7 +169,7 @@ export const getCommunityStats = async (req, res) => {
  */
 export const getFeed = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user.userId;
     const limit = parseInt(req.query.limit) || 20;
     const offset = parseInt(req.query.offset) || 0;
 
@@ -233,25 +233,21 @@ export const getFeed = async (req, res) => {
       LIMIT ? OFFSET ?
     `;
 
-    db.query(
-      query,
-      [userId, userId, userId, limit, offset],
-      (err, results) => {
-        if (err) {
-          console.error("Erreur lors de la récupération du feed:", err);
-          return res.status(500).json({
-            error: "Erreur lors de la récupération du fil d'actualité",
-          });
-        }
-
-        res.json({
-          feed: results,
-          count: results.length,
-          offset,
-          limit,
+    db.query(query, [userId, userId, userId, limit, offset], (err, results) => {
+      if (err) {
+        console.error("Erreur lors de la récupération du feed:", err);
+        return res.status(500).json({
+          error: "Erreur lors de la récupération du fil d'actualité",
         });
       }
-    );
+
+      res.json({
+        feed: results,
+        count: results.length,
+        offset,
+        limit,
+      });
+    });
   } catch (error) {
     console.error("Erreur lors de la récupération du feed:", error);
     res.status(500).json({
@@ -371,10 +367,7 @@ export const getMonthlyTrends = async (req, res) => {
 
       db.query(usersQuery, (err2, topUsers) => {
         if (err2) {
-          console.error(
-            "Erreur lors de la récupération des tendances:",
-            err2
-          );
+          console.error("Erreur lors de la récupération des tendances:", err2);
           return res.status(500).json({
             error: "Erreur lors de la récupération des tendances",
           });
@@ -394,4 +387,3 @@ export const getMonthlyTrends = async (req, res) => {
     });
   }
 };
-

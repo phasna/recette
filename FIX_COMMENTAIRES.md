@@ -187,3 +187,4 @@ Avec les corrections :
 - ✅ Les logs vous aident à comprendre ce qui se passe
 
 **Redémarrez le backend et testez ! 🚀**
+

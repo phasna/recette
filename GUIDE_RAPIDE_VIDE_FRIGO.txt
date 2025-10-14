@@ -1,0 +1,89 @@
+═══════════════════════════════════════════════════════════
+  🎊 ASSISTANT VIDE-FRIGO - GUIDE ULTRA-RAPIDE 🎊
+═══════════════════════════════════════════════════════════
+
+
+🚀 COMMENT TESTER (2 ÉTAPES):
+
+1. RECHARGEZ LA PAGE
+   Windows/Linux : Ctrl + R
+   Mac : Cmd + R
+
+2. AJOUTEZ UN INGRÉDIENT
+   Exemples : Chicken, Egg, Poulet, Tomate, XYZ, ABC
+
+
+✅ GARANTIE : VOUS VERREZ TOUJOURS DES RÉSULTATS !
+
+
+═══════════════════════════════════════════════════════════
+  📊 CE QUI VA S'AFFICHER
+═══════════════════════════════════════════════════════════
+
+Ingrédient EN ANGLAIS (Chicken, Egg, etc.)
+→ 10-15 recettes d'INTERNET avec photos 🌐
+
+Ingrédient EN FRANÇAIS (Poulet, Œufs, etc.)
+→ 5 recettes de DÉMONSTRATION avec photos ✨
+
+N'importe quoi d'autre
+→ 5 recettes de DÉMONSTRATION avec photos ✨
+
+En cas d'erreur
+→ Recette de SECOURS créée pour vous ⚡
+
+
+═══════════════════════════════════════════════════════════
+  🎁 FEATURES
+═══════════════════════════════════════════════════════════
+
+✅ Photos réelles sur toutes les recettes
+✅ Badges colorés (🌐 Internet, ✨ Démo, ⚡ Secours)
+✅ % de correspondance affiché
+✅ Ingrédients manquants listés
+✅ Curseur de filtrage (0-100%)
+✅ Clic → YouTube, TheMealDB, ou Popup
+
+
+═══════════════════════════════════════════════════════════
+  🧪 TESTS À FAIRE
+═══════════════════════════════════════════════════════════
+
+Test 1 : Ajoutez "Chicken"
+→ Devrait afficher des recettes de poulet d'Internet
+
+Test 2 : Ajoutez "Poulet"
+→ Devrait afficher 5 recettes de démonstration
+
+Test 3 : Ajoutez "XYZ"
+→ Devrait afficher 5 recettes de démonstration
+
+Test 4 : Cliquez sur une recette
+→ Devrait ouvrir un lien ou popup
+
+
+═══════════════════════════════════════════════════════════
+  💡 ASTUCE
+═══════════════════════════════════════════════════════════
+
+Pour voir les vraies recettes d'Internet avec photos,
+utilisez des ingrédients EN ANGLAIS :
+
+✅ Chicken (poulet)
+✅ Beef (bœuf)
+✅ Pork (porc)
+✅ Fish (poisson)
+✅ Egg (œuf)
+✅ Tomato (tomate)
+✅ Onion (oignon)
+✅ Garlic (ail)
+✅ Rice (riz)
+✅ Pasta (pâtes)
+
+
+═══════════════════════════════════════════════════════════
+
+          🎉 RECHARGEZ ET TESTEZ ! 🎉
+
+═══════════════════════════════════════════════════════════
+

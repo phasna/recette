@@ -139,3 +139,4 @@ node backend/scripts/demo-data-community.js
 ```
 
 **Démarrez et profitez ! 🍽️✨**
+

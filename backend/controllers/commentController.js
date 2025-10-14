@@ -14,14 +14,14 @@ export const createComment = async (req, res) => {
 
     const { recipeId, commentText, rating } = req.body;
 
-    if (!req.user || !req.user.id) {
+    if (!req.user || !req.user.userId) {
       console.log("❌ Pas d'utilisateur authentifié");
       return res.status(401).json({
         error: "Authentification requise",
       });
     }
 
-    const userId = req.user.id;
+    const userId = req.user.userId;
 
     const comment = new Comment({
       recipe_id: recipeId,
@@ -72,7 +72,7 @@ export const updateComment = async (req, res) => {
   try {
     const { commentId } = req.params;
     const { commentText, rating } = req.body;
-    const userId = req.user.id;
+    const userId = req.user.userId;
 
     // Récupérer le commentaire
     const comment = await Comment.findById(parseInt(commentId));
@@ -124,7 +124,7 @@ export const updateComment = async (req, res) => {
 export const deleteComment = async (req, res) => {
   try {
     const { commentId } = req.params;
-    const userId = req.user.id;
+    const userId = req.user.userId;
 
     console.log("🗑️  Suppression commentaire:", { commentId, userId });
 
@@ -226,7 +226,7 @@ export const getUserComments = async (req, res) => {
 export const likeComment = async (req, res) => {
   try {
     const { commentId } = req.params;
-    const userId = req.user.id;
+    const userId = req.user.userId;
 
     await Comment.like(parseInt(commentId), userId);
 
@@ -254,7 +254,7 @@ export const likeComment = async (req, res) => {
 export const unlikeComment = async (req, res) => {
   try {
     const { commentId } = req.params;
-    const userId = req.user.id;
+    const userId = req.user.userId;
 
     const success = await Comment.unlike(parseInt(commentId), userId);
 

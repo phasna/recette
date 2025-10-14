@@ -232,7 +232,12 @@ class Recipe {
    */
   static async findById(id) {
     return new Promise((resolve, reject) => {
-      const query = "SELECT * FROM recipes WHERE id = ?";
+      const query = `
+        SELECT r.*, u.username, u.first_name, u.last_name 
+        FROM recipes r 
+        LEFT JOIN users u ON r.user_id = u.id 
+        WHERE r.id = ?
+      `;
 
       db.query(query, [id], (err, results) => {
         if (err) {
@@ -240,7 +245,12 @@ class Recipe {
         } else if (results.length === 0) {
           resolve(null);
         } else {
-          resolve(new Recipe(results[0]));
+          const recipe = new Recipe(results[0]);
+          // Ajouter les informations de l'utilisateur
+          recipe.username = results[0].username;
+          recipe.first_name = results[0].first_name;
+          recipe.last_name = results[0].last_name;
+          resolve(recipe);
         }
       });
     });
@@ -361,6 +371,10 @@ class Recipe {
       shared_at: this.shared_at,
       created_at: this.created_at,
       updated_at: this.updated_at,
+      // Informations de l'utilisateur (si disponibles)
+      username: this.username,
+      first_name: this.first_name,
+      last_name: this.last_name,
     };
   }
 }
