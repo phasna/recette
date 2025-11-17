@@ -1,0 +1,112 @@
+═══════════════════════════════════════════════════════════════
+📸🎥 DÉMARRAGE RAPIDE : Photos et Vidéos pour Recettes
+═══════════════════════════════════════════════════════════════
+
+🚀 INSTALLATION EN 3 ÉTAPES
+═══════════════════════════════════════════════════════════════
+
+1️⃣  Exécuter la migration SQL
+   
+   mysql -u root -p food_community < database/add_media_columns.sql
+
+2️⃣  Redémarrer le backend
+
+   cd backend
+   npm start
+
+3️⃣  Tester !
+
+   - Créez une nouvelle recette
+   - Ajoutez une photo et une vidéo
+   - Admirez le résultat !
+
+───────────────────────────────────────────────────────────────
+
+✨ UTILISATION RAPIDE
+═══════════════════════════════════════════════════════════════
+
+AJOUTER UNE PHOTO :
+  1. Trouvez une image sur internet
+  2. Clic droit → Copier l'adresse de l'image
+  3. Collez dans le champ "📷 URL de la photo"
+  4. Aperçu instantané !
+
+AJOUTER UNE VIDÉO :
+  1. Allez sur YouTube
+  2. Cliquez sur "Partager"
+  3. Copiez le lien
+  4. Collez dans le champ "🎥 Lien vidéo"
+
+───────────────────────────────────────────────────────────────
+
+📋 EXEMPLES D'URLs
+═══════════════════════════════════════════════════════════════
+
+PHOTOS :
+  ✅ https://images.unsplash.com/photo-123...
+  ✅ https://i.imgur.com/abc123.jpg
+  ✅ https://exemple.com/image.png
+
+VIDÉOS :
+  ✅ https://youtube.com/watch?v=abc123
+  ✅ https://youtu.be/xyz789
+  ✅ https://vimeo.com/123456789
+
+───────────────────────────────────────────────────────────────
+
+❓ PROBLÈMES COURANTS
+═══════════════════════════════════════════════════════════════
+
+❌ Photo ne s'affiche pas
+   → Vérifiez que l'URL se termine par .jpg, .png, etc.
+   → Testez l'URL dans votre navigateur
+
+❌ Vidéo ne s'intègre pas
+   → Assurez-vous que la vidéo est publique
+   → Utilisez le bouton "Partager" de YouTube
+
+❌ Erreur lors de la sauvegarde
+   → URL trop longue (max 500 caractères)
+   → Utilisez un raccourcisseur d'URL
+
+───────────────────────────────────────────────────────────────
+
+📚 DOCUMENTATION COMPLÈTE
+═══════════════════════════════════════════════════════════════
+
+Guide complet :  GUIDE_PHOTO_VIDEO_RECETTES.md
+Résumé détaillé : RESUME_AJOUT_PHOTO_VIDEO.md
+
+───────────────────────────────────────────────────────────────
+
+🎁 SITES UTILES POUR IMAGES
+═══════════════════════════════════════════════════════════════
+
+📸 Unsplash     → https://unsplash.com (images gratuites)
+📷 Pexels       → https://pexels.com (images gratuites)
+🖼️  Imgur       → https://imgur.com (hébergement gratuit)
+🌅 Pixabay      → https://pixabay.com (images libres)
+
+───────────────────────────────────────────────────────────────
+
+✅ CHECKLIST
+═══════════════════════════════════════════════════════════════
+
+[ ] Migration SQL exécutée
+[ ] Backend redémarré
+[ ] Frontend redémarré (si nécessaire)
+[ ] Test d'ajout de recette avec photo
+[ ] Test d'ajout de recette avec vidéo
+[ ] Test d'affichage dans la page de détails
+
+───────────────────────────────────────────────────────────────
+
+🎉 C'EST TOUT !
+═══════════════════════════════════════════════════════════════
+
+Vos recettes sont maintenant plus belles que jamais !
+
+Profitez bien de cette nouvelle fonctionnalité ! 🍳
+
+Date : 21 octobre 2025
+

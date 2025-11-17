@@ -15,6 +15,8 @@ class Recipe {
     this.cook_time = data.cook_time || null;
     this.servings = data.servings || null;
     this.difficulty = data.difficulty || "Facile";
+    this.image_url = data.image_url || null;
+    this.video_url = data.video_url || null;
     this.user_id = data.user_id || null;
     this.is_shared = data.is_shared || 0;
     this.share_message = data.share_message || null;
@@ -92,6 +94,16 @@ class Recipe {
       });
     }
 
+    // Pas de limite de taille - vous pouvez uploader des images de n'importe quelle taille
+
+    // Validation de l'URL de la vidéo (si fournie)
+    if (this.video_url && this.video_url.length > 500) {
+      errors.push({
+        field: "video_url",
+        message: "L'URL de la vidéo est trop longue (max 500 caractères)",
+      });
+    }
+
     return {
       isValid: errors.length === 0,
       errors: errors,
@@ -105,8 +117,8 @@ class Recipe {
   async create() {
     return new Promise((resolve, reject) => {
       const query = `
-        INSERT INTO recipes (title, description, ingredients, instructions, prep_time, cook_time, servings, difficulty, user_id)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO recipes (title, description, ingredients, instructions, prep_time, cook_time, servings, difficulty, image_url, video_url, user_id)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `;
 
       const values = [
@@ -118,6 +130,8 @@ class Recipe {
         this.cook_time || null,
         this.servings || null,
         this.difficulty || "Facile",
+        this.image_url || null,
+        this.video_url || null,
         this.user_id,
       ];
 
@@ -141,7 +155,8 @@ class Recipe {
       const query = `
         UPDATE recipes 
         SET title = ?, description = ?, ingredients = ?, instructions = ?, 
-            prep_time = ?, cook_time = ?, servings = ?, difficulty = ?
+            prep_time = ?, cook_time = ?, servings = ?, difficulty = ?,
+            image_url = ?, video_url = ?
         WHERE id = ?
       `;
 
@@ -154,6 +169,8 @@ class Recipe {
         this.cook_time,
         this.servings,
         this.difficulty,
+        this.image_url,
+        this.video_url,
         this.id,
       ];
 
@@ -363,6 +380,8 @@ class Recipe {
       cook_time: this.cook_time,
       servings: this.servings,
       difficulty: this.difficulty,
+      image_url: this.image_url,
+      video_url: this.video_url,
       user_id: this.user_id,
       is_shared: this.is_shared,
       share_message: this.share_message,

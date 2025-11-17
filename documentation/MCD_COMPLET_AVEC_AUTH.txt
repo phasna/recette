@@ -1,0 +1,462 @@
+# 🍽️ MCD COMPLET avec Authentification
+
+## 📊 DIAGRAMME MCD (Modèle Conceptuel de Données) COMPLET
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                MCD - APPLICATION RECETTES AVEC AUTH            │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────┐
+│      USER       │
+├─────────────────┤
+│ id (PK)         │
+│ username        │
+│ email           │
+│ password        │
+│ first_name      │
+│ last_name       │
+│ country         │
+│ avatar_url      │
+│ is_active       │
+│ email_verified  │
+│ created_at      │
+│ updated_at      │
+│ last_login      │
+└─────────────────┘
+         │
+         │ 1
+         │
+         │ 0,N
+         │
+┌─────────────────┐
+│     RECIPE      │
+├─────────────────┤
+│ id (PK)         │
+│ title           │
+│ description     │
+│ ingredients     │
+│ instructions    │
+│ prep_time       │
+│ cook_time       │
+│ servings        │
+│ difficulty      │
+│ image_url       │
+│ video_url       │
+│ user_id (FK)    │
+│ is_shared       │
+│ share_message   │
+│ allow_comments  │
+│ show_author_info│
+│ shared_at       │
+│ created_at      │
+│ updated_at      │
+└─────────────────┘
+         │
+         │ 1
+         │
+         │ 0,N
+         │
+┌─────────────────┐
+│    FAVORITE     │
+├─────────────────┤
+│ id (PK)         │
+│ user_id (FK)    │
+│ recipe_id (FK)  │
+│ created_at      │
+└─────────────────┘
+
+┌─────────────────┐
+│    COMMENT      │
+├─────────────────┤
+│ id (PK)         │
+│ user_id (FK)    │
+│ recipe_id (FK)  │
+│ content         │
+│ is_approved     │
+│ created_at      │
+│ updated_at      │
+└─────────────────┘
+
+┌─────────────────┐
+│     FOLLOW      │
+├─────────────────┤
+│ id (PK)         │
+│ follower_id (FK)│
+│ following_id (FK)│
+│ created_at      │
+└─────────────────┘
+
+┌─────────────────┐
+│     BADGE       │
+├─────────────────┤
+│ id (PK)         │
+│ name            │
+│ description     │
+│ icon            │
+│ criteria        │
+│ points          │
+│ created_at      │
+└─────────────────┘
+
+┌─────────────────┐
+│  USER_BADGES    │
+├─────────────────┤
+│ id (PK)         │
+│ user_id (FK)    │
+│ badge_id (FK)   │
+│ earned_at       │
+└─────────────────┘
+
+┌─────────────────┐
+│ PASSWORD_RESET  │
+├─────────────────┤
+│ id (PK)         │
+│ user_id (FK)    │
+│ token           │
+│ expires_at      │
+│ used            │
+│ created_at      │
+└─────────────────┘
+
+┌─────────────────┐
+│ EMAIL_VERIFICATION│
+├─────────────────┤
+│ id (PK)         │
+│ user_id (FK)    │
+│ token           │
+│ expires_at      │
+│ verified        │
+│ created_at      │
+└─────────────────┘
+
+┌─────────────────┐
+│ USER_SESSIONS   │
+├─────────────────┤
+│ id (PK)         │
+│ user_id (FK)    │
+│ token           │
+│ device_info     │
+│ ip_address      │
+│ expires_at      │
+│ created_at      │
+│ last_activity   │
+└─────────────────┘
+
+┌─────────────────┐
+│ RECIPE_VIEWS    │
+├─────────────────┤
+│ id (PK)         │
+│ recipe_id (FK)  │
+│ user_id (FK)    │
+│ ip_address      │
+│ viewed_at       │
+└─────────────────┘
+
+┌─────────────────┐
+│ RECIPE_RATINGS  │
+├─────────────────┤
+│ id (PK)         │
+│ recipe_id (FK)  │
+│ user_id (FK)    │
+│ rating          │
+│ review          │
+│ created_at      │
+│ updated_at      │
+└─────────────────┘
+```
+
+## 🔗 RELATIONS ENTRE ENTITÉS
+
+```
+USER (1,N) ──── RECIPE
+  │                │
+  │                │
+  │ (1,N)          │ (1,N)
+  │                │
+  │                │
+FAVORITE ──────────┘
+
+USER (1,N) ──── COMMENT
+  │                │
+  │                │
+  │                │ (1,N)
+  │                │
+  │                │
+  └─────────────── RECIPE
+
+USER (1,N) ──── FOLLOW
+  │                │
+  │ (1,N)          │ (1,N)
+  │                │
+  │                │
+  └─────────────── USER
+
+USER (1,N) ──── USER_BADGES
+  │                │
+  │                │ (1,N)
+  │                │
+  │                │
+  └─────────────── BADGE
+
+USER (1,N) ──── PASSWORD_RESET
+  │
+  │ (1,N)
+  │
+  │
+USER (1,N) ──── EMAIL_VERIFICATION
+
+USER (1,N) ──── USER_SESSIONS
+
+USER (1,N) ──── RECIPE_VIEWS
+  │                │
+  │                │ (1,N)
+  │                │
+  │                │
+  └─────────────── RECIPE
+
+USER (1,N) ──── RECIPE_RATINGS
+  │                │
+  │                │ (1,N)
+  │                │
+  │                │
+  └─────────────── RECIPE
+```
+
+## 📋 CARDINALITÉS DÉTAILLÉES
+
+### **USER ↔ RECIPE**
+- **1 User** peut créer **0,N Recipes**
+- **1 Recipe** appartient à **1 User**
+- **Relation** : Composition (User possède Recipe)
+
+### **USER ↔ FAVORITE**
+- **1 User** peut avoir **0,N Favorites**
+- **1 Favorite** appartient à **1 User**
+- **Relation** : Association (User a des favoris)
+
+### **RECIPE ↔ FAVORITE**
+- **1 Recipe** peut être **0,N Favorites**
+- **1 Favorite** concerne **1 Recipe**
+- **Relation** : Association (Recipe peut être favori)
+
+### **USER ↔ COMMENT**
+- **1 User** peut écrire **0,N Comments**
+- **1 Comment** est écrit par **1 User**
+- **Relation** : Association (User écrit des commentaires)
+
+### **RECIPE ↔ COMMENT**
+- **1 Recipe** peut avoir **0,N Comments**
+- **1 Comment** concerne **1 Recipe**
+- **Relation** : Association (Recipe a des commentaires)
+
+### **USER ↔ FOLLOW**
+- **1 User** peut suivre **0,N Users** (following_id)
+- **1 User** peut être suivi par **0,N Users** (follower_id)
+- **Relation** : Association réflexive (User suit User)
+
+### **USER ↔ BADGE (via USER_BADGES)**
+- **1 User** peut avoir **0,N Badges**
+- **1 Badge** peut être attribué à **0,N Users**
+- **Relation** : Association (User a des badges)
+
+### **USER ↔ PASSWORD_RESET**
+- **1 User** peut avoir **0,N Password_Reset**
+- **1 Password_Reset** appartient à **1 User**
+- **Relation** : Association (User a des demandes de reset)
+
+### **USER ↔ EMAIL_VERIFICATION**
+- **1 User** peut avoir **0,N Email_Verification**
+- **1 Email_Verification** appartient à **1 User**
+- **Relation** : Association (User a des vérifications email)
+
+### **USER ↔ USER_SESSIONS**
+- **1 User** peut avoir **0,N User_Sessions**
+- **1 User_Session** appartient à **1 User**
+- **Relation** : Association (User a des sessions)
+
+### **USER ↔ RECIPE_VIEWS**
+- **1 User** peut avoir **0,N Recipe_Views**
+- **1 Recipe_View** appartient à **1 User**
+- **Relation** : Association (User a des vues de recettes)
+
+### **RECIPE ↔ RECIPE_VIEWS**
+- **1 Recipe** peut avoir **0,N Recipe_Views**
+- **1 Recipe_View** concerne **1 Recipe**
+- **Relation** : Association (Recipe a des vues)
+
+### **USER ↔ RECIPE_RATINGS**
+- **1 User** peut avoir **0,N Recipe_Ratings**
+- **1 Recipe_Rating** appartient à **1 User**
+- **Relation** : Association (User a des notes)
+
+### **RECIPE ↔ RECIPE_RATINGS**
+- **1 Recipe** peut avoir **0,N Recipe_Ratings**
+- **1 Recipe_Rating** concerne **1 Recipe**
+- **Relation** : Association (Recipe a des notes)
+
+## 🎯 RÈGLES MÉTIER
+
+### **Règles d'Authentification**
+1. **Un utilisateur** doit avoir un username unique
+2. **Un utilisateur** doit avoir un email unique
+3. **Un utilisateur** doit avoir un mot de passe hashé
+4. **Un utilisateur** peut être actif ou inactif
+5. **Un utilisateur** peut avoir son email vérifié ou non
+6. **Un utilisateur** peut avoir plusieurs sessions actives
+7. **Un token de reset** expire après 24h
+8. **Un token de vérification** expire après 48h
+
+### **Règles de Gestion des Recettes**
+1. **Une recette** doit avoir un titre non vide
+2. **Une recette** doit avoir des ingrédients
+3. **Une recette** doit avoir des instructions
+4. **Une recette** peut être partagée publiquement
+5. **Une recette** peut autoriser les commentaires
+6. **Une recette** peut afficher les infos de l'auteur
+
+### **Règles de Gestion des Favoris**
+1. **Un utilisateur** ne peut pas mettre la même recette en favori plusieurs fois
+2. **Un favori** est unique par couple (user_id, recipe_id)
+
+### **Règles de Gestion des Commentaires**
+1. **Un commentaire** ne peut pas être vide
+2. **Un commentaire** peut être approuvé ou non
+3. **Un utilisateur** peut modifier ses propres commentaires
+
+### **Règles de Gestion des Notes**
+1. **Une note** doit être entre 1 et 5
+2. **Un utilisateur** ne peut noter une recette qu'une seule fois
+3. **Un utilisateur** peut modifier sa note
+
+### **Contraintes d'Intégrité**
+1. **Clés primaires** : Uniques et non nulles
+2. **Clés étrangères** : Références valides
+3. **Cascade** : Suppression d'un User → suppression de ses Recipes, Comments, Favorites
+4. **Cascade** : Suppression d'une Recipe → suppression de ses Comments, Favorites, Views, Ratings
+5. **Cascade** : Suppression d'un User → suppression de ses Sessions, Password_Reset, Email_Verification
+
+## 📊 DICTIONNAIRE DE DONNÉES COMPLET
+
+### **USER**
+| Attribut | Type | Contrainte | Description |
+|----------|------|------------|-------------|
+| id | INT | PK, AUTO | Identifiant unique |
+| username | VARCHAR(50) | UNIQUE, NOT NULL | Nom d'utilisateur |
+| email | VARCHAR(100) | UNIQUE, NOT NULL | Adresse email |
+| password | VARCHAR(255) | NOT NULL | Mot de passe hashé |
+| first_name | VARCHAR(50) | NULL | Prénom |
+| last_name | VARCHAR(50) | NULL | Nom de famille |
+| country | VARCHAR(50) | NULL | Pays |
+| avatar_url | VARCHAR(500) | NULL | URL de l'avatar |
+| is_active | BOOLEAN | DEFAULT 1 | Compte actif |
+| email_verified | BOOLEAN | DEFAULT 0 | Email vérifié |
+| created_at | DATETIME | NOT NULL | Date de création |
+| updated_at | DATETIME | NULL | Date de modification |
+| last_login | DATETIME | NULL | Dernière connexion |
+
+### **RECIPE**
+| Attribut | Type | Contrainte | Description |
+|----------|------|------------|-------------|
+| id | INT | PK, AUTO | Identifiant unique |
+| title | VARCHAR(255) | NOT NULL | Titre de la recette |
+| description | TEXT | NULL | Description |
+| ingredients | TEXT | NOT NULL | Ingrédients |
+| instructions | TEXT | NOT NULL | Instructions |
+| prep_time | INT | NULL | Temps de préparation (min) |
+| cook_time | INT | NULL | Temps de cuisson (min) |
+| servings | INT | NULL | Nombre de portions |
+| difficulty | ENUM | NULL | Niveau de difficulté |
+| image_url | VARCHAR(500) | NULL | URL de l'image |
+| video_url | VARCHAR(500) | NULL | URL de la vidéo |
+| user_id | INT | FK, NOT NULL | ID de l'utilisateur |
+| is_shared | BOOLEAN | DEFAULT 0 | Partagé publiquement |
+| share_message | TEXT | NULL | Message de partage |
+| allow_comments | BOOLEAN | DEFAULT 0 | Autoriser les commentaires |
+| show_author_info | BOOLEAN | DEFAULT 0 | Afficher l'auteur |
+| shared_at | DATETIME | NULL | Date de partage |
+| created_at | DATETIME | NOT NULL | Date de création |
+| updated_at | DATETIME | NULL | Date de modification |
+
+### **PASSWORD_RESET**
+| Attribut | Type | Contrainte | Description |
+|----------|------|------------|-------------|
+| id | INT | PK, AUTO | Identifiant unique |
+| user_id | INT | FK, NOT NULL | ID de l'utilisateur |
+| token | VARCHAR(255) | UNIQUE, NOT NULL | Token de reset |
+| expires_at | DATETIME | NOT NULL | Date d'expiration |
+| used | BOOLEAN | DEFAULT 0 | Token utilisé |
+| created_at | DATETIME | NOT NULL | Date de création |
+
+### **EMAIL_VERIFICATION**
+| Attribut | Type | Contrainte | Description |
+|----------|------|------------|-------------|
+| id | INT | PK, AUTO | Identifiant unique |
+| user_id | INT | FK, NOT NULL | ID de l'utilisateur |
+| token | VARCHAR(255) | UNIQUE, NOT NULL | Token de vérification |
+| expires_at | DATETIME | NOT NULL | Date d'expiration |
+| verified | BOOLEAN | DEFAULT 0 | Email vérifié |
+| created_at | DATETIME | NOT NULL | Date de création |
+
+### **USER_SESSIONS**
+| Attribut | Type | Contrainte | Description |
+|----------|------|------------|-------------|
+| id | INT | PK, AUTO | Identifiant unique |
+| user_id | INT | FK, NOT NULL | ID de l'utilisateur |
+| token | VARCHAR(255) | UNIQUE, NOT NULL | Token de session |
+| device_info | VARCHAR(255) | NULL | Info de l'appareil |
+| ip_address | VARCHAR(45) | NULL | Adresse IP |
+| expires_at | DATETIME | NOT NULL | Date d'expiration |
+| created_at | DATETIME | NOT NULL | Date de création |
+| last_activity | DATETIME | NULL | Dernière activité |
+
+### **RECIPE_VIEWS**
+| Attribut | Type | Contrainte | Description |
+|----------|------|------------|-------------|
+| id | INT | PK, AUTO | Identifiant unique |
+| recipe_id | INT | FK, NOT NULL | ID de la recette |
+| user_id | INT | FK, NULL | ID de l'utilisateur |
+| ip_address | VARCHAR(45) | NULL | Adresse IP |
+| viewed_at | DATETIME | NOT NULL | Date de vue |
+
+### **RECIPE_RATINGS**
+| Attribut | Type | Contrainte | Description |
+|----------|------|------------|-------------|
+| id | INT | PK, AUTO | Identifiant unique |
+| recipe_id | INT | FK, NOT NULL | ID de la recette |
+| user_id | INT | FK, NOT NULL | ID de l'utilisateur |
+| rating | INT | NOT NULL | Note (1-5) |
+| review | TEXT | NULL | Avis |
+| created_at | DATETIME | NOT NULL | Date de création |
+| updated_at | DATETIME | NULL | Date de modification |
+
+## 🎉 RÉSUMÉ MCD COMPLET
+
+**ENTITÉS PRINCIPALES :**
+- **USER** : Utilisateurs avec authentification complète
+- **RECIPE** : Recettes avec partage et commentaires
+- **FAVORITE** : Favoris des utilisateurs
+- **COMMENT** : Commentaires sur les recettes
+- **FOLLOW** : Suivi entre utilisateurs
+- **BADGE** : Système de récompenses
+
+**ENTITÉS D'AUTHENTIFICATION :**
+- **PASSWORD_RESET** : Reset de mot de passe
+- **EMAIL_VERIFICATION** : Vérification d'email
+- **USER_SESSIONS** : Sessions utilisateur
+
+**ENTITÉS D'ANALYTIQUE :**
+- **RECIPE_VIEWS** : Vues des recettes
+- **RECIPE_RATINGS** : Notes et avis
+
+**RELATIONS PRINCIPALES :**
+- User crée Recipe (1:N)
+- User a des Favorites (1:N)
+- Recipe a des Comments (1:N)
+- User suit d'autres Users (N:N)
+- User a des Badges (N:N)
+- User a des Sessions (1:N)
+- Recipe a des Views (1:N)
+- Recipe a des Ratings (1:N)
+
+Ce MCD complet inclut toute la gestion d'authentification et d'analytique ! 🎯

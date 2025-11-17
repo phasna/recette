@@ -61,6 +61,8 @@ const recipeController = {
         cook_time,
         servings,
         difficulty,
+        image_url,
+        video_url,
       } = req.body;
 
       // Récupérer l'ID de l'utilisateur connecté (ou null si pas connecté)
@@ -76,6 +78,8 @@ const recipeController = {
         cook_time,
         servings,
         difficulty,
+        image_url,
+        video_url,
         user_id: userId,
       });
 
@@ -119,6 +123,8 @@ const recipeController = {
         cook_time,
         servings,
         difficulty,
+        image_url,
+        video_url,
       } = req.body;
 
       // Récupérer la recette existante
@@ -139,6 +145,8 @@ const recipeController = {
       existingRecipe.cook_time = cook_time;
       existingRecipe.servings = servings;
       existingRecipe.difficulty = difficulty;
+      existingRecipe.image_url = image_url;
+      existingRecipe.video_url = video_url;
 
       // Valider la recette
       const validation = existingRecipe.validate();

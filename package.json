@@ -27,5 +27,8 @@
     "recipes"
   ],
   "author": "Recipe Management Team",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^30.2.0"
+  }
 }

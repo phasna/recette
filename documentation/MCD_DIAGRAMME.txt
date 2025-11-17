@@ -1,0 +1,252 @@
+# 🍽️ MCD - Modèle Conceptuel de Données
+
+## 📊 DIAGRAMME MCD (Modèle Conceptuel de Données)
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    MCD - APPLICATION RECETTES                  │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────┐
+│      USER       │
+├─────────────────┤
+│ id (PK)         │
+│ username        │
+│ email           │
+│ password        │
+│ first_name      │
+│ last_name       │
+│ country         │
+│ avatar_url      │
+│ created_at      │
+│ updated_at      │
+└─────────────────┘
+         │
+         │ 1
+         │
+         │ 0,N
+         │
+┌─────────────────┐
+│     RECIPE      │
+├─────────────────┤
+│ id (PK)         │
+│ title           │
+│ description     │
+│ ingredients     │
+│ instructions    │
+│ prep_time       │
+│ cook_time       │
+│ servings        │
+│ difficulty      │
+│ image_url       │
+│ video_url       │
+│ user_id (FK)    │
+│ is_shared       │
+│ share_message   │
+│ allow_comments  │
+│ show_author_info│
+│ shared_at       │
+│ created_at      │
+│ updated_at      │
+└─────────────────┘
+         │
+         │ 1
+         │
+         │ 0,N
+         │
+┌─────────────────┐
+│    FAVORITE     │
+├─────────────────┤
+│ id (PK)         │
+│ user_id (FK)    │
+│ recipe_id (FK)  │
+│ created_at      │
+└─────────────────┘
+
+┌─────────────────┐
+│    COMMENT      │
+├─────────────────┤
+│ id (PK)         │
+│ user_id (FK)    │
+│ recipe_id (FK)  │
+│ content         │
+│ created_at      │
+│ updated_at      │
+└─────────────────┘
+
+┌─────────────────┐
+│     FOLLOW      │
+├─────────────────┤
+│ id (PK)         │
+│ follower_id (FK)│
+│ following_id (FK)│
+│ created_at      │
+└─────────────────┘
+
+┌─────────────────┐
+│     BADGE       │
+├─────────────────┤
+│ id (PK)         │
+│ name            │
+│ description     │
+│ icon            │
+│ criteria        │
+│ created_at      │
+└─────────────────┘
+
+┌─────────────────┐
+│  USER_BADGES    │
+├─────────────────┤
+│ id (PK)         │
+│ user_id (FK)    │
+│ badge_id (FK)   │
+│ earned_at       │
+└─────────────────┘
+```
+
+## 🔗 RELATIONS ENTRE ENTITÉS
+
+```
+USER (1,N) ──── RECIPE
+  │                │
+  │                │
+  │ (1,N)          │ (1,N)
+  │                │
+  │                │
+FAVORITE ──────────┘
+
+USER (1,N) ──── COMMENT
+  │                │
+  │                │
+  │                │ (1,N)
+  │                │
+  │                │
+  └─────────────── RECIPE
+
+USER (1,N) ──── FOLLOW
+  │                │
+  │ (1,N)          │ (1,N)
+  │                │
+  │                │
+  └─────────────── USER
+
+USER (1,N) ──── USER_BADGES
+  │                │
+  │                │ (1,N)
+  │                │
+  │                │
+  └─────────────── BADGE
+```
+
+## 📋 CARDINALITÉS DÉTAILLÉES
+
+### **USER ↔ RECIPE**
+- **1 User** peut créer **0,N Recipes**
+- **1 Recipe** appartient à **1 User**
+- **Relation** : Composition (User possède Recipe)
+
+### **USER ↔ FAVORITE**
+- **1 User** peut avoir **0,N Favorites**
+- **1 Favorite** appartient à **1 User**
+- **Relation** : Association (User a des favoris)
+
+### **RECIPE ↔ FAVORITE**
+- **1 Recipe** peut être **0,N Favorites**
+- **1 Favorite** concerne **1 Recipe**
+- **Relation** : Association (Recipe peut être favori)
+
+### **USER ↔ COMMENT**
+- **1 User** peut écrire **0,N Comments**
+- **1 Comment** est écrit par **1 User**
+- **Relation** : Association (User écrit des commentaires)
+
+### **RECIPE ↔ COMMENT**
+- **1 Recipe** peut avoir **0,N Comments**
+- **1 Comment** concerne **1 Recipe**
+- **Relation** : Association (Recipe a des commentaires)
+
+### **USER ↔ FOLLOW**
+- **1 User** peut suivre **0,N Users** (following_id)
+- **1 User** peut être suivi par **0,N Users** (follower_id)
+- **Relation** : Association réflexive (User suit User)
+
+### **USER ↔ BADGE (via USER_BADGES)**
+- **1 User** peut avoir **0,N Badges**
+- **1 Badge** peut être attribué à **0,N Users**
+- **Relation** : Association (User a des badges)
+
+## 🎯 RÈGLES MÉTIER
+
+### **Règles de Gestion**
+1. **Un utilisateur** doit avoir un username unique
+2. **Un utilisateur** doit avoir un email unique
+3. **Une recette** doit avoir un titre non vide
+4. **Une recette** doit avoir des ingrédients
+5. **Une recette** doit avoir des instructions
+6. **Un commentaire** ne peut pas être vide
+7. **Un utilisateur** ne peut pas se suivre lui-même
+
+### **Contraintes d'Intégrité**
+1. **Clés primaires** : Uniques et non nulles
+2. **Clés étrangères** : Références valides
+3. **Cascade** : Suppression d'un User → suppression de ses Recipes
+4. **Cascade** : Suppression d'une Recipe → suppression de ses Comments
+5. **Cascade** : Suppression d'un User → suppression de ses Favorites
+
+## 📊 DICTIONNAIRE DE DONNÉES
+
+### **USER**
+| Attribut | Type | Contrainte | Description |
+|----------|------|------------|-------------|
+| id | INT | PK, AUTO | Identifiant unique |
+| username | VARCHAR(50) | UNIQUE, NOT NULL | Nom d'utilisateur |
+| email | VARCHAR(100) | UNIQUE, NOT NULL | Adresse email |
+| password | VARCHAR(255) | NOT NULL | Mot de passe hashé |
+| first_name | VARCHAR(50) | NULL | Prénom |
+| last_name | VARCHAR(50) | NULL | Nom de famille |
+| country | VARCHAR(50) | NULL | Pays |
+| avatar_url | VARCHAR(500) | NULL | URL de l'avatar |
+| created_at | DATETIME | NOT NULL | Date de création |
+| updated_at | DATETIME | NULL | Date de modification |
+
+### **RECIPE**
+| Attribut | Type | Contrainte | Description |
+|----------|------|------------|-------------|
+| id | INT | PK, AUTO | Identifiant unique |
+| title | VARCHAR(255) | NOT NULL | Titre de la recette |
+| description | TEXT | NULL | Description |
+| ingredients | TEXT | NOT NULL | Ingrédients |
+| instructions | TEXT | NOT NULL | Instructions |
+| prep_time | INT | NULL | Temps de préparation (min) |
+| cook_time | INT | NULL | Temps de cuisson (min) |
+| servings | INT | NULL | Nombre de portions |
+| difficulty | ENUM | NULL | Niveau de difficulté |
+| image_url | VARCHAR(500) | NULL | URL de l'image |
+| video_url | VARCHAR(500) | NULL | URL de la vidéo |
+| user_id | INT | FK, NOT NULL | ID de l'utilisateur |
+| is_shared | BOOLEAN | DEFAULT 0 | Partagé publiquement |
+| share_message | TEXT | NULL | Message de partage |
+| allow_comments | BOOLEAN | DEFAULT 0 | Autoriser les commentaires |
+| show_author_info | BOOLEAN | DEFAULT 0 | Afficher l'auteur |
+| shared_at | DATETIME | NULL | Date de partage |
+| created_at | DATETIME | NOT NULL | Date de création |
+| updated_at | DATETIME | NULL | Date de modification |
+
+## 🎉 RÉSUMÉ MCD
+
+**5 ENTITÉS PRINCIPALES :**
+- **USER** : Utilisateurs de l'application
+- **RECIPE** : Recettes créées par les utilisateurs
+- **FAVORITE** : Favoris des utilisateurs
+- **COMMENT** : Commentaires sur les recettes
+- **FOLLOW** : Suivi entre utilisateurs
+- **BADGE** : Système de récompenses
+
+**RELATIONS PRINCIPALES :**
+- User crée Recipe (1:N)
+- User a des Favorites (1:N)
+- Recipe a des Comments (1:N)
+- User suit d'autres Users (N:N)
+- User a des Badges (N:N)
+
+Ce MCD représente la structure conceptuelle de votre base de données ! 🎯
